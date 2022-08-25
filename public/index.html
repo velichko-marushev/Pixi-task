@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceX</title>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <script type="module" src="./Model.js"></script>
+    <script type="module" src="./View.js"></script>
+    <script type="module" src="./Controler.js"></script>
+    <script type="module">
+        import { Controler } from './Controler.js';
+
+        let ctl;
+
+        window.onload = function () {
+            const apiUrl = "https://api.spacexdata.com/v2/rockets";
+
+            ctl = new Controler(apiUrl);
+
+        }
+
+        document.getElementById('start')
+            .addEventListener('click', () => {
+                setTimeout(function () {
+                    ctl.requestApi();
+                }, 200);
+                document.getElementById('start')
+                    .hidden = true;
+                    document.getElementById('restart')
+                    .hiden = false;
+            });
+
+        document.getElementById('restart')
+            .addEventListener('click',()=>{
+                document.getElementById('start')
+                    .hidden = false;
+                    document.getElementById('restart')
+                    .hiden = true;
+                    window.location.reload();
+            });
+    </script>
+</head>
+<body>
+    <button id="start">start</button><br>
+    <button id="restart">restart</button><br>
+</body>
+
+</html>
